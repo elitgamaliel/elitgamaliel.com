@@ -1,0 +1,110 @@
+---
+import AboutLogos from "./AboutLogos.astro";
+interface About {
+    title: string
+    description: string
+}
+const aboutContain = await Astro.glob<About>("../../content/about/about.md")
+const { title, description } = aboutContain[0].frontmatter;
+
+const black = "#060606";
+---
+
+<section id="about">
+    <div class="about contain">
+        <h1 class="about__heading">{ title }</h1>
+        <div class="about__description">
+            <p>
+                { description }
+            </p>
+        </div>
+    </div>
+    <div class="about-techlogos">
+        <AboutLogos />
+    </div>
+</section>
+
+<style lang="scss" define:vars={{black}}>
+    #about {
+        background-color: var(--black);
+        height: auto;
+        display: flex;
+        flex-direction: column;
+    }
+    .about {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        &__heading {
+            color: white;
+            font-size: 4rem;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        &__description {
+            color: white;
+            font-size: 1.8rem;
+            line-height: 1.9;
+            margin-bottom: 2rem;
+
+            p {
+                margin-bottom: 0;
+            }
+        }
+    }
+    .about-techlogos {
+        max-width: 120rem;
+        width: 94svw;
+    }
+    /*--------------- Responsive Design ------------*/
+    @media (orientation: landscape) {
+        #about {
+            margin-top: 10%;
+        }
+    }
+
+    @media only screen and (width >= 768px) {
+        #about {
+            display: flex;
+            align-items: center;
+            height: 50rem;
+            gap: 2rem;
+        }
+        .about {
+            display: grid;
+            align-items: center;
+            gap: 2rem;
+
+            &__heading {
+                font-size: 7.2rem;
+                text-transform: uppercase;
+                margin: 0;
+            }
+            &__description {
+                font-size: 2rem;
+                margin-bottom: 0;
+            } 
+        }
+    }
+    @media screen and (width >= 1028px) {
+        .about {
+            display: grid;
+            align-items: center;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: none;
+            gap: 2rem;
+
+            &__heading {
+                font-size: 7.2rem;
+                text-transform: uppercase;
+                margin: 0;
+            }
+            &__description {
+                font-size: 2rem;
+                margin-bottom: 0;
+            } 
+        }
+    }
+</style>

@@ -1,0 +1,265 @@
+---
+import LogoIcon from "./LogoIcon.astro";
+
+const navItems = [
+    { title: "Home", href: "#home" },
+    { title: "About Me", href: "#about" },
+    { title: "Projects", href: "#projects" },
+    { title: "Contact", href: "#contact" },
+];
+
+const blue = "#0085ff";
+const blueDown = "#69b4ff";
+const black = "#060606";
+const grey = "#313d44";
+---
+<div class="navbar">
+    <a href="#home" class="navbar__logo">
+        <LogoIcon />
+    </a>
+    <div class="navbar__iconMenu">
+        <svg  class="iconOpen" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9h16.5m-16.5 6.75h16.5" />
+        </svg>
+        
+        <svg  class="iconClose hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+    </div>
+
+    <div data-nav-contain class="nav-menu hidden">
+        <nav>
+            <ul class="nav-items">
+                {
+                    navItems.map( item => (
+                        <li>
+                            <a class="nav-item" href={item.href}>{item.title}</a>
+                        </li>
+                    ))
+                }
+            </ul>
+        </nav>
+        <a href="https://drive.google.com/file/d/19GWpHN8qNaN5pQOXFa8CLTvyKd84wH8o/view?usp=drive_link" target="_blank"><button>CV</button></a>
+    </div>
+</div>
+
+<script>
+    const buttonOpenMenu= document.querySelector(".iconOpen") as HTMLButtonElement;
+    const buttonCloseMenu = document.querySelector(".iconClose") as HTMLButtonElement;
+    const menu = document.querySelector("[data-nav-contain]") as HTMLElement;
+    const links = document.querySelectorAll('.nav-item');
+
+    const displayMenu = () => {
+        buttonCloseMenu.classList.toggle("hidden");
+        buttonOpenMenu.classList.toggle("hidden");
+        menu.classList.toggle("hidden")
+    };
+    const closeMenu = () => {
+        buttonCloseMenu.classList.toggle("hidden")
+        buttonOpenMenu.classList.toggle("hidden")
+        menu.classList.toggle("hidden")
+    }
+
+    buttonOpenMenu.addEventListener("click", displayMenu )
+    buttonCloseMenu.addEventListener("click", closeMenu )
+    links.forEach( link => {
+        link.addEventListener("click", closeMenu);
+    })
+</script>
+
+<style lang="scss" define:vars={{blue, blueDown, black, grey}}>
+    .navbar {
+        max-width: 120rem;
+        width: 95%;
+        padding-top: 2rem;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        color: white;
+        font-size: 1.8rem;
+        position: fixed;
+        top: 0;
+        border-radius: 1rem;
+        z-index: 2;
+
+        &::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 5rem;
+            z-index: -1;
+            top: 2rem;
+            left: 0;
+            border-radius: 1.2rem;
+
+            animation: scroll-nav linear both;
+            animation-timeline: scroll(root block); 
+            animation-range: 0 200px;
+        }
+
+        &__logo {
+            display: flex;
+            align-items: center;
+            height: 5rem;
+        }
+
+        &__iconMenu {
+            display: flex;
+            flex-direction: column;
+            width: 5rem;
+        }
+    }
+    .nav-menu {
+        position: absolute;
+        top: 100%;
+        margin-top: 2rem;
+        padding: 2rem 3rem;
+        width: 100%;
+        text-align: center;
+        background-color: rgba(49, 61, 68, 0.5);
+        backdrop-filter: blur(4px);
+        border-radius: 1rem;
+    }
+    .hidden {
+        position: absolute;
+        top: -600%;
+        display: none;
+    }
+    .nav-items {
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 3rem;
+
+        & li {
+            display: block;
+            list-style: none;
+            transition-property: color;
+            transition-duration: .2s;
+        }
+    }
+    .navbar ul li:hover {
+        cursor: pointer;
+        color: var(--blue);
+    }
+
+    button {
+        display: block;
+        width: 100%;
+        color: white;
+        cursor: pointer;
+        font-size: 1.6rem;
+        margin-top: 3rem;
+        padding-block: 1rem;
+        padding-inline: 1rem;
+        border: none;
+        border-radius: .4rem;
+        background-color: var(--blue);
+        transition: background-color .3s;
+
+        &:hover {
+            color: var(--blue);
+            background-color: white;
+        }
+    }
+    /*--------------- Animation ---------------------*/
+    @keyframes scroll-nav {
+        from {
+            background-color: rgba(182, 204, 216, 0);
+        }
+        to {
+            background-color: rgba(6, 6, 6, 0.5);
+            backdrop-filter: blur(1.5rem);
+        }
+    }
+    /*--------------- Responsive Design ----------------*/
+    @media screen and (width >= 768px) {
+        .nav {
+
+            &__contain {
+                width: 30dvw;
+            }
+        }
+    }
+
+    @media only screen and (width >= 1028px) {
+        .navbar {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            color: white;
+            font-size: 1.8rem;
+            padding-block: 2rem;
+
+            position: fixed;
+            top: 0%;
+
+            &::after {
+                content: '';
+                position: absolute;
+                width: 98%;
+                height: 5rem;
+                z-index: -1;
+                top: 23%;
+                left: 0;
+                border-radius: 1.2rem;
+
+                animation: scroll-nav linear both;
+                animation-timeline: scroll(root block); 
+                animation-range: 0 500px;
+            }
+
+            &__iconMenu {
+            display: none;
+        }
+        }
+        .nav {
+            flex-direction: row;
+
+            &__contain {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                gap: 2rem;
+                margin: 0;
+                background-color: transparent;
+                width: 80rem;
+
+                backdrop-filter: blur(0);
+            }
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: none;
+            background-color: transparent;
+            position: absolute;
+            max-width: 68%;
+            top: -16%;
+            margin-left: 32%;
+        }
+        button {
+            display: block;
+            width: 15rem;
+            max-width: 15rem;
+            padding-block: 1rem;
+            padding-inline: 2rem;
+            margin: 0;
+        }
+        .navbar ul {
+            padding: 0;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 3rem;
+            margin: 0rem;
+        }
+    }
+
+</style>

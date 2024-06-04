@@ -1,0 +1,146 @@
+---
+import { Image } from 'astro:assets';
+import iconGitHub from "../../images/githubIcon.svg";
+import iconLink from "../../images/linkIcon.svg";
+
+interface Props {
+    title: string;
+    description: string;
+    tools: string[];
+    image: string;
+    alt: string;
+    link: string;
+    github: string;
+}
+const { title, description, tools, image, link, alt, github } = Astro.props;
+
+const black: string = "rgba(6, 6, 6, 0.5)";
+const bluePro: string = "#0085ff";
+---
+
+<div class="card">
+    <div class="card__image">
+        <Image
+            class="card__image--img"
+            loading="lazy"
+            src={ image } 
+            alt={ alt } 
+            inferSize
+        />
+    </div>
+    
+    <div class="card__heading">
+            <h1 class="card__title">{ title }</h1>
+
+            <div class="icons">
+                <div class="icon">
+                    <a href={github} target="_blank">
+                        <Image src={iconGitHub} alt="github icon" loading="lazy" width="25" height="25"/>
+                    </a>
+                </div>
+                <div class="icon">
+                    <a href={link} target="_blank">
+                        <Image src={iconLink} alt="link icon" loading="lazy" width="25" height="25"/>
+                    </a>
+                </div>
+            </div>
+    </div>
+
+    <p class="card__description">{ description }</p>
+    <br>
+    <ul class="tools">
+        {
+            tools.map( tool => (
+                <li class="tools__item">{tool}</li>
+            ))
+        }
+    </ul>
+</div>
+
+<style lang="scss" define:vars={{ black, bluePro }}>
+    .card {
+        max-width: 94vw ;
+        margin: 0 auto;
+        margin-bottom: 3rem;
+        background-color: var(--black);
+        backdrop-filter: blur(.6rem);
+        border-radius: 0.8rem;
+        padding: 1.6rem;
+        padding-bottom: 3rem;
+        scroll-snap-align: center;
+
+        &__image {
+            border-radius: 1rem;
+            aspect-ratio: 4 / 3;
+
+        }
+        &__image--img {
+            height: 100%;
+            object-fit: cover;
+            border-radius: .5rem;
+        }
+        &__heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2rem;
+        }
+        &__title {
+            color: white;
+            text-align: left;
+            font-size: 2.4rem;
+        }
+        &__link {
+            color: white;
+            font-size: 1.6rem;
+            text-decoration: underline;
+        }
+        &__description {
+            color: white;
+            font-size: 1.6rem;
+        }
+    }
+
+    .icons {
+        display: flex;
+        column-gap: 1rem;
+    }
+
+    .tools {
+        display: flex;
+        gap: 4rem;
+        flex-wrap: wrap;
+        padding: 0;
+
+        &__item {
+            color: white;
+            font-size: 1.6rem;
+            list-style: none;
+            line-height: 0.5;
+            transition: color .1s ease-in-out;
+            
+            &:hover {
+                cursor: default;
+            }
+        }
+    }
+    /*---------------- Responsive Design ----------------*/
+    @media screen and (width >= 768px ) {
+        .card {
+            max-width: 38rem;
+        }
+    }
+
+    @media screen and (width >= 1028px ) {
+        .card {
+            transition: transform .12s ease-in-out;
+            transition: border .08s ease-in-out;
+
+            &:hover {
+                transform: scale(1.05);
+                border: 2px solid white;
+            }
+        }
+    }
+
+</style>

@@ -1,0 +1,71 @@
+---
+import TechLogos from "./TechLogos.astro";
+---
+
+<div class="about__logos">
+    <div class="about__logos-slide">
+        <TechLogos />
+    </div>
+</div>
+
+<style lang="scss" >
+    :root {
+        --widthLogoMobile: 5rem;
+        --widthLogoDesktop: 7rem;
+        --marginLogoMobile: 4rem;
+        --marginLogoDesktop: 5rem;
+    }
+    .about {
+        &__logos {
+            width: 94svw;
+            overflow: hidden;
+            padding-bottom: 3rem;
+            padding-inline: 0;
+            margin: 0 auto;
+            -webkit-mask: linear-gradient(90deg, transparent, white 20%, white 80%, white 20%, transparent);
+        }
+
+        &__logos-slide {
+            display: flex;
+            width: calc(var(--widthLogoMobile)*20);
+            animation: 12s slide linear infinite;
+
+            &:hover {
+                animation-play-state: paused;
+            }
+        }
+    }
+
+    
+    /*------------- Animations --------------*/
+    @keyframes slide {
+        from {
+            transform: translateX(0);
+        }
+        to {
+            transform: translateX(calc( calc( calc( var(--widthLogoMobile) + var(--marginLogoMobile ) ) )* -10 ));
+        }
+    }
+
+    /*----------- Responsive Design -------------------*/
+    @media screen and (width >= 1028px) {
+        .about {
+            &__logos {
+                width: 100rem;
+            }
+
+            &__logos-slide {
+                width: calc(var(--widthLogoDesktop)*20);
+            }
+        }
+        
+        @keyframes slide {
+        from {
+            transform: translateX(0);
+        }
+        to {
+            transform: translateX(calc( calc( calc( var(--widthLogoDesktop) + var(--marginLogoDesktop )) )* -10));
+        }
+    }
+    }
+</style>
