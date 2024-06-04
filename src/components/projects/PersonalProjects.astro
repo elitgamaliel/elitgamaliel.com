@@ -13,8 +13,8 @@ const blue = "#0085ff";
         <div class="projects__cards ">
             {
                 projects.map( project => (
-                    <CardProject 
-                        title={project.frontmatter.title} 
+                    <CardProject
+                        title={project.frontmatter.title}
                         description={project.frontmatter.description}
                         tools={project.frontmatter.tools}
                         image={project.frontmatter.image}
@@ -32,7 +32,7 @@ const blue = "#0085ff";
     section {
         margin: 0 auto;
         background-color: var(--black);
-        background-image: linear-gradient(to bottom, rgba( 6, 6, 6, 1),rgba( 6, 6, 6, 0.65),rgba( 6, 6, 6, 0.65), rgba( 6, 6, 6, 1)  ), url("../../../../../../espectro640x427.jpg");
+        background-image: linear-gradient(to bottom, rgba( 6, 6, 6, 1),rgba( 6, 6, 6, 0.65),rgba( 6, 6, 6, 0.65), rgba( 6, 6, 6, 1)  ), url("/images/espectro640x427.jpg");
         background-repeat: no;
         background-size: cover;
     }
@@ -66,7 +66,7 @@ const blue = "#0085ff";
     /*----------- Responsive Design --------------*/
     @media screen and (width >= 768px) {
         section {
-            background-image: linear-gradient(to bottom, rgba( 6, 6, 6, 1),rgba( 6, 6, 6, 0.65),rgba( 6, 6, 6, 0.65), rgba( 6, 6, 6, 1)  ), url("../../../../../../espectro1280x853_opt.jpg");
+            background-image: linear-gradient(to bottom, rgba( 6, 6, 6, 1),rgba( 6, 6, 6, 0.65),rgba( 6, 6, 6, 0.65), rgba( 6, 6, 6, 1)  ), url("/images/espectro1280x853_opt.jpg");
         }
         .heading {
             font-size: 7.2rem;
